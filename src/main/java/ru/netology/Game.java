@@ -28,22 +28,24 @@ public class Game {
     public void register(Player player) {
         if (findById(player.getId()) != null) {
             throw new AlreadyExistsException("Player with ID: " + player.getId() + " already exists");
-        } else if (findByName(player.getName())!=null){
+        } else if (findByName(player.getName()) != null) {
             throw new AlreadyExistsException("Player with name: " + player.getName() + " already exists");
         } else {
             players.add(player);
         }
     }
 
-    public int round (String playerName1, String playerName2) {
-        if (findByName(playerName1) == null) {
+    public int round(String playerName1, String playerName2) {
+        if (findByName(playerName1) == null && findByName(playerName2) == null) {
+            throw new NotRegisteredException("Players with name: " + playerName1 + ", " + playerName2 + "are not registered");
+        } else if (findByName(playerName1) == null) {
             throw new NotRegisteredException("Player with name: " + playerName1 + "is not registered");
-        }else if (findByName(playerName2) == null) {
+        } else if (findByName(playerName2) == null) {
             throw new NotRegisteredException("Player with name: " + playerName2 + "is not registered");
-            
+
         } else if (findByName(playerName1).getStrength() > findByName(playerName2).getStrength()) {
             return 1;
-        } else if (findByName(playerName1).getStrength() > findByName(playerName2).getStrength()) {
+        } else if (findByName(playerName1).getStrength() < findByName(playerName2).getStrength()) {
             return 2;
         } else {
             return 0;

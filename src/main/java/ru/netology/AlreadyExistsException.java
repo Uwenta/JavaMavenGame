@@ -6,5 +6,4 @@ public class AlreadyExistsException extends RuntimeException {
         super(msg);
     }
 
-
 }
